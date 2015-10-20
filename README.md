@@ -18,7 +18,7 @@ Metapp consists of only one Perl file: [metapp](http://www.metaware.fr/metapp/me
 
 There is a research paper describing Metapp and its application to program refactoring:
 
-#### Nic Volanschi |  [Safe Clone-Based Refactoring through Stereotype Identification and Iso-Generation](http://www.metaware.fr/metapp/Metaware_Opensource_metapp_isogen_iwsc12.pdf).
+Nic Volanschi |  [Safe Clone-Based Refactoring through Stereotype Identification and Iso-Generation](http://www.metaware.fr/metapp/Metaware_Opensource_metapp_isogen_iwsc12.pdf).
 
 presented at the IWSC'12 (6th International Workshop On Software Clones) Zurich, Switzerland, June 4th, 2012.
 
