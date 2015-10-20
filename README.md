@@ -2,7 +2,7 @@
 
 * * *
 
-Introduction
+## Introduction
 
 Metapp is a general-purpose text preprocessor featuring a minimalistic macro language. Its primary purpose is to add macros to programming languages not allowing macros, such as Cobol or Java, but it can be used in a wider spectrum of text processing applications.
 
@@ -12,28 +12,26 @@ When used in conjunction with a programming language, macros are a powerful mech
 
 * * *
 
-#### Downloads
+## Downloads
 
 Metapp consists of only one Perl file: [metapp](http://www.metaware.fr/metapp/metapp), licensed under [GNU GPL v3](http://www.gnu.org/copyleft/gpl.html).
 
 There is a research paper describing Metapp and its application to program refactoring:
 
-###### <span class="nav">Nic Volanschi |  [Safe Clone-Based Refactoring through Stereotype Identification and Iso-Generation](http://www.metaware.fr/metapp/Metaware_Opensource_metapp_isogen_iwsc12.pdf).
-</span>
-<span class="imageclass">presented at the IWSC'12 (6th International Workshop On Software Clones) Zurich, Switzerland, June 4th, 2012.</span>
+#### Nic Volanschi |  [Safe Clone-Based Refactoring through Stereotype Identification and Iso-Generation](http://www.metaware.fr/metapp/Metaware_Opensource_metapp_isogen_iwsc12.pdf).
+
+presented at the IWSC'12 (6th International Workshop On Software Clones) Zurich, Switzerland, June 4th, 2012.
 
 * * *
 
-#### Syntax
+## Syntax
 
-<div align="left">The syntax of a source file to be preprocessed is very simple:
+#### The syntax of a source file to be preprocessed is very simple:
 
 *   Each line starting with a '#' (after any whitespace) is considered to be a line in the macro language interpreted by metapp, also called a preprocessor line. (However, see option -P for changing the prefix of preprocessor lines.)
 *   Any other line (also called a text line) is reproduced by metapp in the output, after substituting any Perl interpolated variable ($name or ${name}) with its current value. (However, see option -p to inhibit substitutions on some text lines, and see option -V for changing the prefix of variables.)
 
-</div>
-
-<div align="left">Metapp lines (starting with '#') can be of the following types:
+#### Metapp lines (starting with '#') can be of the following types:
 
 *   ## text
     *   This line is simply skipped by metapp. It can serve to place comments that will not appear in the preprocessed file. Note that there is no space between the two '#' characters.
@@ -66,30 +64,28 @@ There is a research paper describing Metapp and its application to program refac
 *   #log message
     *   The message is evaluated as a Perl interpolated string and the result is printed on the standard error output.
 
-</div>
 
-<div align="left">Any line can be continued on the following line by:
+#### Any line can be continued on the following line by:
 
 *   appending a "\" at the end of the line (which may followed only by some trailing spaces),
 *   and starting the following line with "#..." (which may be preceded by any number of spaces).
 
-</div>
 
-<div align="left">The #if, #while, and #def constructs may be nested.</div>
+The #if, #while, and #def constructs may be nested.
 
 * * *
 
-#### Invocation
+## Invocation
 
-<div align="left">Synopsis:
+#### Synopsis:
 
 *   metapp [options] source-file
 
-Arguments:
+#### Arguments:
 
 *   source-file: the source file to be pre-processed
 
-Options:
+#### Options:
 
 *   -e Expr: evaluate Perl expression Expr before doing anything else
     *   default: no expression is evaluated
@@ -153,17 +149,15 @@ Options:
     *   default: don't print version but do real work
     *   This option is useful e.g. for scripts requiring a minimum version of the tool.
 
-</div>
 
 * * *
 
-#### Examples
+## Examples
 
-### <span id="HCobolentrypoints">1 Cobol entry points</span>
+### 1 Cobol entry points
 
 The following file, called "entrypts.cpy", is a macro file generating a COPY REPLACING statement with _n_ WHEN clauses, where each clause represents a Cobol Entry point:
 
-| 
 
 <div class="code">
 
@@ -183,9 +177,8 @@ The following file, called "entrypts.cpy", is a macro file generating a COPY REP
 
 </div>
 
- |
 
-In this macro:
+#### In this macro:
 
 *   the #bind statement binds the first (and only) argument of the macro to the local variable $n
 *   the #if statement checks that the argument is negative; if so, it prints an error message and stops processing the macro (but goes on processing the rest of the program)
@@ -193,8 +186,6 @@ In this macro:
 *   the #while loop generates $n WHEN clauses, and in each clause substitutes $i with the loop index
 
 The following Cobol program, called "BCVDC05M.cbl" uses the above macro.
-
-| 
 
 <div class="code">
 
@@ -213,9 +204,8 @@ The following Cobol program, called "BCVDC05M.cbl" uses the above macro.
 
 </div>
 
- |
 
-In the above program:
+#### In the above program:
 
 *   the first assignment sets global variables $n and $pgmid
 *   the global $pgmid is to be substituted in the header and footer of the program (lines PROGRAM-ID and END PROGRAM)
@@ -231,8 +221,6 @@ The Cobol file can be preprocessed by metapp using the following command:
 </div>
 
 The resulting file looks as follows:
-
-| 
 
 <div class="code">
 
@@ -257,15 +245,11 @@ The resulting file looks as follows:
 
 </div>
 
- |
-
 Note that options -B and -E can be omitted if the markers are not needed.
 
 ### <span id="HRecursivemacro">2 Recursive macro</span>
 
 The following file, called "fact.txt", is a macro taking a positive number as argument _n_ and generating a single line containing _n!_, the factorial of _n_.
-
-| 
 
 <div class="code">
 
@@ -278,16 +262,12 @@ $accu
 
 </div>
 
- |
-
 In this macro:
 
 *   the #bind statement declares two arguments, the second one having a default value of 1
 *   when argument $n is zero or 1, the result accumulated in $accu is directly output; otherwise, the macro is invoked recursively
 
 The following file is using macro fact.txt to compute the factorial of 5:
-
-| 
 
 <div class="code">
 
@@ -297,11 +277,9 @@ Right?</pre>
 
 </div>
 
- |
 
 The preprocessed file will look as follows (assuming the same options -B and -E as above):
 
-| 
 
 <div class="code">
 
@@ -321,11 +299,9 @@ Right?</pre>
 
 </div>
 
- |
 
 Alternatively, the macro "fact" can be defined locally as follows:
 
-| 
 
 <div class="code">
 
@@ -344,4 +320,3 @@ Right?</pre>
 
 </div>
 
- |
